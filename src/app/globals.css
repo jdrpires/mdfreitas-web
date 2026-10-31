@@ -1228,15 +1228,6 @@ address {
   align-items: center;
   gap: 8px;
 }
-.service-card:last-child {
-  grid-column: auto;
-}
-@media (min-width: 801px) {
-  .service-card:last-child {
-    grid-column: span 2;
-  }
-}
-
 /* Preserve the official artwork; a light plate keeps the original colors legible on dark surfaces. */
 .brand-image {
   width: 220px;
@@ -1261,5 +1252,55 @@ address {
   }
   .navigation {
     top: 120px;
+  }
+}
+
+.footer-services {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+.footer-services a {
+  font-size: 12px;
+  color: var(--muted);
+}
+.service-navigation {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 24px;
+  padding-top: 30px;
+}
+.service-navigation a {
+  font-size: 12px;
+  border-bottom: 1px solid var(--champagne);
+  padding: 5px 0;
+}
+.related-services {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin-top: 36px;
+}
+@media (min-width: 581px) and (max-width: 800px) {
+  .service-card:last-child {
+    grid-column: 1 / -1;
+  }
+  .service-card:last-child p {
+    max-width: 100%;
+  }
+}
+@media (min-width: 801px) {
+  .service-grid {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+  .service-card {
+    grid-column: span 2;
+  }
+  .service-card:nth-child(n + 4) {
+    grid-column: span 3;
+  }
+  .service-card p {
+    max-width: 100%;
   }
 }

@@ -7,6 +7,7 @@ import {
   UsersRound,
   Files,
   Building2,
+  ClipboardCheck,
 } from "lucide-react";
 import { greeting, whatsappMessage } from "@/lib/channels";
 import { services, contact } from "@/lib/site";
@@ -42,6 +43,7 @@ export function ServiceGrid() {
     UsersRound,
     Files,
     Building2,
+    ClipboardCheck,
   ];
   return (
     <div className="service-grid">

@@ -30,6 +30,7 @@ test("request contains the actual fields without inventing company details", () 
   assert.ok(text.includes("Empresa: Não informada"));
 });
 
-test("unconfirmed company-opening service is rejected", () => {
-  assert.ok(validateContact({ ...valid, service: "Abertura de empresas" }));
+test("company opening and regularization are valid contact topics", () => {
+  for (const service of ["Abertura de Empresas", "Regularização de Empresas"])
+    assert.equal(validateContact({ ...valid, service }), null);
 });

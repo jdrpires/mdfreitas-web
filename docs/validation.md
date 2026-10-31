@@ -11,10 +11,10 @@ Revisão local de 31/10/2026 na branch `feat/institutional-website`, destinada �
 | `npm run typecheck`                  | Geração dos tipos de rota e TypeScript strict; verificado sem `.next` prévio          |
 | `npm test`                           | 10 testes unitários aprovados                                                         |
 | Build sem canais reais configurados  | Produção compilada e páginas pré-renderizadas                                         |
-| E2E `CONTACT_TEST_SCENARIO=none`     | 13 testes aprovados; build Preview, sem canais                                        |
-| E2E `CONTACT_TEST_SCENARIO=whatsapp` | 13 testes aprovados; WhatsApp e e-mail de teste, produção indexável                   |
-| E2E `CONTACT_TEST_SCENARIO=official` | 13 testes aprovados; contatos públicos oficiais, sem variáveis comerciais de override |
-| E2E `CONTACT_TEST_SCENARIO=email`    | 13 testes aprovados; apenas e-mail de teste, produção indexável                       |
+| E2E `CONTACT_TEST_SCENARIO=none`     | 14 testes aprovados; build Preview, sem canais                                        |
+| E2E `CONTACT_TEST_SCENARIO=whatsapp` | 14 testes aprovados; WhatsApp e e-mail de teste, produção indexável                   |
+| E2E `CONTACT_TEST_SCENARIO=official` | 14 testes aprovados; contatos públicos oficiais, sem variáveis comerciais de override |
+| E2E `CONTACT_TEST_SCENARIO=email`    | 14 testes aprovados; apenas e-mail de teste, produção indexável                       |
 | `npm audit --omit=dev`               | 0 vulnerabilidades reportadas nas dependências de produção                            |
 | `git diff --check`                   | Sem problemas de whitespace                                                           |
 
@@ -22,7 +22,7 @@ Os cenários E2E foram executados separadamente com `PLAYWRIGHT_CHROMIUM_EXECUTA
 
 ## Cobertura de comportamento
 
-Nove URLs de conteúdo verificadas com status 200, um h1, canonical oficial, descrição, Open Graph, Twitter e Organization JSON-LD mínimo. Links internos e âncoras foram percorridos e tiveram os destinos conferidos. Sitemap e imagem PNG de compartilhamento respondem; rota inexistente retorna 404. Não foram encontrados erros de hidratação ou violações de CSP no console nos fluxos testados.
+Onze URLs de conteúdo verificadas com status 200, um h1, canonical oficial, descrição, Open Graph, Twitter e Organization JSON-LD mínimo. Links internos e âncoras foram percorridos e tiveram os destinos conferidos. Sitemap e imagem PNG de compartilhamento respondem; rota inexistente retorna 404. Não foram encontrados erros de hidratação ou violações de CSP no console nos fluxos testados.
 
 Sem canais, não há formulário, campos de contato, download de TXT ou envio fictício. Com canais, os testes preenchem os campos, verificam as restrições obrigatórias, preparam a mensagem e inspecionam os URLs codificados sem abri-los externamente. As mensagens não são apresentadas como entregues. Edição posterior invalida os links preparados; localStorage e sessionStorage permanecem vazios. Há teste separado para o canal de privacidade.
 
@@ -32,7 +32,7 @@ Em Preview, com `SITE_INDEXABLE=true` propositalmente, HTML, header e robots con
 
 Todas as páginas foram verificadas em 390, 768 e 1440 px sem overflow horizontal, nos quatro cenários. O teste cobre foco no link de pular conteúdo, abertura do menu, Escape com retorno do foco ao botão, navegação e fechamento. Redução de movimento verificada pelo estilo computado.
 
-Axe-core não encontrou violações automatizáveis nas regras WCAG A/AA selecionadas para Home, Contato, Serviços e Privacidade em 390 e 1440 px, incluindo os estados com formulário configurado. Isso não representa certificação ou auditoria completa com tecnologias assistivas.
+Axe-core não encontrou violações automatizáveis nas regras WCAG A/AA selecionadas para Home, Contato, Serviços, Abertura, Regularização e Privacidade em 390 e 1440 px, incluindo os estados com formulário configurado. Isso não representa certificação ou auditoria completa com tecnologias assistivas.
 
 Capturas para revisão visual, com os contatos oficiais e sem fixtures:
 
@@ -40,6 +40,9 @@ Capturas para revisão visual, com os contatos oficiais e sem fixtures:
 - Dados públicos: novo `src/lib/business.ts`, `.env.example`, Home, Sobre, Contato e rodapé.
 - Serviços: catálogo, validação, sitemap e redirecionamento em `src/app/abertura-de-empresas/page.tsx`.
 - Contato: [390 px](previews/contact-mobile.png), [768 px](previews/contact-tablet.png), [1440 px](previews/contact-desktop.png).
+- Serviços: [desktop](previews/services-desktop.png), [mobile](previews/services-mobile.png).
+- Abertura: [desktop](previews/opening-desktop.png), [mobile](previews/opening-mobile.png).
+- Regularização: [desktop](previews/regularization-desktop.png), [mobile](previews/regularization-mobile.png).
 
 ## Segurança e desempenho
 
@@ -59,7 +62,7 @@ Workflow `.github/workflows/ci.yml`: Node 24, npm cache, permissões `contents: 
 - Componentes e layout: `src/components/brand.tsx`, `src/components/footer.tsx` e `src/app/globals.css`.
 - Dados comerciais: novo `src/lib/business.ts`, `src/lib/site.ts` e `.env.example`.
 - Conteúdo: `src/app/page.tsx`, páginas Sobre, Contato, Serviços e Política de Privacidade.
-- Serviços e compatibilidade: `src/lib/contact.ts`, `src/app/abertura-de-empresas/page.tsx`, `src/app/sitemap.ts` e testes de formulário.
+- Portfólio e páginas: `src/lib/business.ts`, `src/lib/site.ts`, `src/app/servicos/page.tsx`, `src/app/abertura-de-empresas/page.tsx`, nova `src/app/regularizacao-de-empresas/page.tsx`, `src/app/sitemap.ts`, `src/components/ui.tsx`, `src/components/footer.tsx` e testes de formulário/navegador.
 - CI e navegador: `.github/workflows/ci.yml`, `scripts/test-e2e.mjs` e `tests/browser/site.spec.ts`.
 - Documentação: README, arquitetura, roadmap, design system, validação, texto de PR, instruções da marca e capturas em `docs/previews/`.
 
@@ -67,13 +70,15 @@ Workflow `.github/workflows/ci.yml`: Node 24, npm cache, permissões `contents: 
 
 Contatos oficiais padrão: WhatsApp +55 16 99737-9559 e contato@mdfreitas.com.br. Endereço informado: Rua Aquidaban, 1, Sala 2, Centro, São Carlos — SP. Responsável informada: Monica Freitas. A Home usa os dois textos aprovados. Não foram criados histórico profissional, certificações ou resultados.
 
-O catálogo contém exatamente cinco serviços. Abertura de Empresas não aparece em cartões, formulário ou navegação; a rota legada responde com 308 para `/servicos` e foi retirada do sitemap. A suíte verifica esse comportamento. A minuta de privacidade existente foi atualizada com os dados informados e continua sujeita à aprovação jurídica; nenhum novo arquivo de minuta foi disponibilizado nesta atualização.
+O portfólio definitivo contém sete serviços, disponíveis na Home, página de Serviços, navegação do rodapé e seleção do formulário. Abertura de Empresas responde novamente com 200; Regularização de Empresas tem uma nova rota. Ambas aparecem no sitemap, têm SEO específico e apresentam os títulos e descrições fornecidos. A suíte confere esses textos, destinos e metadados, além dos layouts de 390, 768 e 1440 px.
+
+Os textos institucionais e a minuta foram aprovados para implementação. A política continua explicitamente sujeita à validação jurídica final. O posicionamento da Home foi preservado integralmente. Nenhum serviço promete deferimento, eliminação de multas, economia garantida ou prazo fixo.
 
 ## Pendências de homologação
 
 A marca oficial já está incorporada. A validação humana final do tamanho e legibilidade do logo e do favicon deve integrar a homologação, especialmente em telas de alta densidade. Não há pendência de acesso ao PNG.
 
-Os contatos comerciais estão configurados. Ainda dependem da responsável: canal específico de privacidade, identificação jurídica e validação dos registros (CNPJ/CRC não publicados), aprovação da minuta e definição de retenção/fornecedores. O envio final nos aplicativos deve ser homologado pela responsável. Vercel, domínio e DNS não foram configurados. Não houve merge ou publicação em produção.
+Os contatos comerciais estão configurados. Ainda dependem da responsável: canal específico de privacidade, identificação jurídica e validação dos registros (CNPJ/CRC não publicados), validação jurídica final da minuta e definição de retenção/fornecedores. O envio final nos aplicativos deve ser homologado pela responsável. Vercel, domínio e DNS não foram configurados. Não houve merge ou publicação em produção.
 
 ## Auditoria do arquivo de marca
 

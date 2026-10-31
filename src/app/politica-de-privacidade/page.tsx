@@ -16,8 +16,9 @@ export default function Page() {
       />
       <article className="section container prose">
         <aside className="article-note">
-          Versão para revisão. Este documento ainda depende de validação pela
-          responsável pelo escritório e não está juridicamente aprovado.
+          Minuta aprovada para implementação. Este documento ainda depende de
+          validação pela responsável pelo escritório e não está juridicamente
+          aprovado.
         </aside>
         <h2>Responsável e escopo</h2>
         <p>

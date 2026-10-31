@@ -8,6 +8,8 @@ const routes = [
   "/sobre",
   "/servicos",
   "/contabilidade-consultiva",
+  "/abertura-de-empresas",
+  "/regularizacao-de-empresas",
   "/conteudos",
   "/contato",
   "/politica-de-privacidade",
@@ -271,6 +273,8 @@ test("automated WCAG A-AA checks in desktop and mobile", async ({ page }) => {
       "/",
       "/contato",
       "/servicos",
+      "/abertura-de-empresas",
+      "/regularizacao-de-empresas",
       "/politica-de-privacidade",
     ]) {
       await page.goto(route);
@@ -287,34 +291,75 @@ test("automated WCAG A-AA checks in desktop and mobile", async ({ page }) => {
   }
 });
 
-test("only confirmed services are offered and the retired address redirects safely", async ({
+test("all seven services are available on home, services, navigation and contact", async ({
   page,
   request,
 }) => {
-  await page.goto("/servicos");
-  await expect(page.locator(".service-card")).toHaveCount(5);
-  await expect(page.locator('a[href="/abertura-de-empresas"]')).toHaveCount(0);
-  await expect(page.locator(".service-card h3")).toHaveText([
+  const names = [
     "Consultoria Empresarial",
     "Gestão Financeira",
     "Contabilidade",
     "Departamento Pessoal",
     "Departamento Fiscal",
-  ]);
-  const response = await request.get("/abertura-de-empresas", {
-    maxRedirects: 0,
-  });
-  expect(response.status()).toBe(308);
-  expect(response.headers().location).toBe("/servicos");
-  expect(await (await request.get("/sitemap.xml")).text()).not.toContain(
-    "/abertura-de-empresas",
-  );
+    "Abertura de Empresas",
+    "Regularização de Empresas",
+  ];
+  for (const route of ["/", "/servicos"]) {
+    await page.goto(route);
+    await expect(page.locator(".service-card")).toHaveCount(7);
+    await expect(page.locator(".service-card h3")).toHaveText(names);
+  }
+  const sitemap = await (await request.get("/sitemap.xml")).text();
+  for (const path of ["/abertura-de-empresas", "/regularizacao-de-empresas"]) {
+    const response = await request.get(path, { maxRedirects: 0 });
+    expect(response.status()).toBe(200);
+    expect(response.headers().location).toBeUndefined();
+    expect(sitemap).toContain(`https://mdfreitas.com.br${path}`);
+    await expect(
+      page
+        .getByRole("navigation", { name: "Navegação de serviços" })
+        .locator(`a[href="${path}"]`),
+    ).toHaveCount(1);
+  }
   if (configured) {
     await page.goto("/contato");
-    await expect(page.locator('select[name="service"] option')).toHaveCount(7);
-    await expect(page.locator('select[name="service"]')).not.toContainText(
-      "Abertura de empresas",
+    await expect(page.locator('select[name="service"] option')).toHaveCount(9);
+    for (const name of names)
+      await expect(page.getByRole("option", { name, exact: true })).toHaveCount(
+        1,
+      );
+  }
+});
+test("new service pages use the approved copy and individual SEO", async ({
+  page,
+}) => {
+  for (const service of [
+    {
+      slug: "abertura-de-empresas",
+      name: "Abertura de Empresas",
+      headline: "Seu negócio começa com uma estrutura bem planejada.",
+      description:
+        "Orientação e acompanhamento dos procedimentos necessários para a abertura e formalização de empresas, com atenção ao enquadramento tributário, às exigências cadastrais e às particularidades de cada atividade.",
+    },
+    {
+      slug: "regularizacao-de-empresas",
+      name: "Regularização de Empresas",
+      headline: "Mais tranquilidade para manter sua empresa em dia.",
+      description:
+        "Apoio na identificação e regularização de pendências cadastrais, fiscais e documentais, auxiliando empresas a recuperar sua regularidade e organizar suas obrigações.",
+    },
+  ]) {
+    await page.goto(`/${service.slug}`);
+    await expect(page.locator("h1")).toHaveText(service.headline);
+    await expect(page.locator(".intro-copy")).toHaveText(service.description);
+    await expect(page).toHaveTitle(`${service.name} | M D’Freitas`);
+    await expect(page.locator('meta[name="description"]')).toHaveAttribute(
+      "content",
+      service.description,
     );
+    await expect(
+      page.getByRole("link", { name: "Todos os serviços", exact: true }),
+    ).toHaveAttribute("href", "/servicos");
   }
 });
 test("approved headline and verified public details appear without invented credentials", async ({

@@ -54,7 +54,7 @@ A CI em `.github/workflows/ci.yml` executa instalação, lint, tipos, unitários
 
 ## Páginas e SEO
 
-Home, Sobre, Serviços, Contabilidade Consultiva, Conteúdos, Contato e Política de Privacidade, além de dois artigos. O endereço antigo `/abertura-de-empresas` redireciona permanentemente para `/servicos` (308), sem aparecer nas ofertas, formulário, navegação ou sitemap. Inclui metadata individual, canonical oficial, Open Graph/Twitter, imagem de compartilhamento, sitemap, robots, HTML semântico e JSON-LD `Organization` apenas com nome e domínio. Não há dados estruturados de endereço, avaliações ou registros não confirmados.
+Home, Sobre, Serviços, Contabilidade Consultiva, Abertura de Empresas, Regularização de Empresas, Conteúdos, Contato e Política de Privacidade, além de dois artigos. As páginas de abertura e regularização respondem com 200 e possuem metadados específicos, links de navegação e inclusão no sitemap. Inclui metadata individual, canonical oficial, Open Graph/Twitter, imagem de compartilhamento, sitemap, robots, HTML semântico e JSON-LD `Organization` apenas com nome e domínio. Não há dados estruturados de endereço, avaliações ou registros não confirmados.
 
 ## Preparação para Vercel
 
@@ -72,8 +72,8 @@ Nenhum deploy, merge, alteração de DNS ou recurso pago é realizado pelos scri
 - Homologar visualmente o logotipo oficial já incorporado, incluindo header, rodapé e favicon.
 - Confirmar o canal específico de privacidade. Os contatos comerciais já foram fornecidos e configurados.
 - Identificação jurídica completa e validação de CNPJ/CRC; nenhum número é publicado. Responsável informada: Monica Freitas.
-- Revisão institucional e técnica do conteúdo pela responsável.
-- Validação e aprovação da Política de Privacidade, inclusive fornecedores e retenção.
+- Homologação visual e funcional do conteúdo aprovado para implementação.
+- Validação jurídica final da minuta já aprovada para implementação, inclusive fornecedores e retenção.
 - Homologação visual e funcional; publicação e domínio somente após autorização.
 
 Não foram implementados portal, administração, autenticação, banco, APIs contábeis ou infraestrutura SaaS.
@@ -87,6 +87,6 @@ Não foram implementados portal, administração, autenticação, banco, APIs co
 
 A configuração pública em `src/lib/business.ts` usa WhatsApp **+55 16 99737-9559**, **contato@mdfreitas.com.br**, endereço **Rua Aquidaban, 1, Sala 2, Centro, São Carlos — SP**, responsável informada **Monica Freitas** e domínio **https://mdfreitas.com.br**. Quando as variáveis de canal não existem, esses contatos são os padrões do build. Definir explicitamente valor vazio desativa o canal correspondente, inclusive nos testes. Não há CNPJ, CRC ou credenciais profissionais presumidas.
 
-A Home usa o título “Mais do que números. Estratégia para o seu crescimento.” e a mensagem “Estratégia, organização e confiança para o seu negócio.”. Os cinco serviços confirmados são Consultoria Empresarial, Gestão Financeira, Contabilidade, Departamento Pessoal e Departamento Fiscal. Artigos gerais sobre empreendedorismo são conteúdo informativo, não a confirmação de um serviço autônomo de abertura de empresas.
+A Home usa o título “Mais do que números. Estratégia para o seu crescimento.” e a mensagem “Estratégia, organização e confiança para o seu negócio.”. O portfólio definitivo contém sete serviços: Consultoria Empresarial, Gestão Financeira, Contabilidade, Departamento Pessoal, Departamento Fiscal, Abertura de Empresas e Regularização de Empresas. Os sete aparecem na Home, em Serviços, na navegação do rodapé e no formulário de contato. Abertura e Regularização têm páginas próprias com os títulos e descrições aprovados, sem promessas de aprovação, multas, economia garantida ou prazos fixos.
 
 O PNG oficial foi recuperado da `main` no commit `5c601f5`, sem merge. Foi otimizado sem alterar os pixels RGBA (264.142 → 219.576 bytes). A variante de exibição reduz margens sem editar o desenho. O monograma foi extraído do original para favicon ICO 16/32/48 px e ícone PNG 256 px. Os componentes usam PNG sem recompressão com perdas e superfície clara de apoio para preservar cores e contraste. Consulte `public/branding/README.md` e `docs/validation.md`.

@@ -3,7 +3,7 @@ import { services, metadata as makeMetadata } from "@/lib/site";
 export const metadata = makeMetadata(
   "Serviços",
   "/servicos",
-  "Explore soluções em consultoria empresarial, gestão financeira, contabilidade, departamento pessoal e departamento fiscal.",
+  "Conheça os sete serviços da M D’Freitas: consultoria, gestão financeira, contabilidade, pessoal, fiscal, abertura e regularização de empresas.",
 );
 export default function Page() {
   return (
@@ -13,6 +13,16 @@ export default function Page() {
         title="Cuidado com os detalhes. Visão do todo."
         text="Soluções contábeis, financeiras e empresariais pensadas para acompanhar cada etapa da sua jornada."
       />
+      <nav
+        className="container service-navigation"
+        aria-label="Conheça nossos serviços"
+      >
+        {services.map((service) => (
+          <a key={service.id} href={service.href}>
+            {service.title}
+          </a>
+        ))}
+      </nav>
       <section className="section container">
         <ServiceGrid />
       </section>

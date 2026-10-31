@@ -7,6 +7,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/sobre",
     "/servicos",
     "/contabilidade-consultiva",
+    "/abertura-de-empresas",
+    "/regularizacao-de-empresas",
     "/conteudos",
     "/contato",
     "/politica-de-privacidade",

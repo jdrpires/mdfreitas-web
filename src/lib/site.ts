@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { business, confirmedServiceNames } from "./business";
+import { business, confirmedServiceNames, companyServices } from "./business";
 import { validEmail, whatsappUrl } from "./channels";
 export const site = {
   name: "M D’Freitas",
@@ -88,5 +88,19 @@ export const services = [
     icon: "fiscal",
     href: "/servicos#departamento-fiscal",
     id: "departamento-fiscal",
+  },
+  {
+    title: confirmedServiceNames[5],
+    text: companyServices.opening.description,
+    icon: "business",
+    href: "/abertura-de-empresas",
+    id: "abertura-de-empresas",
+  },
+  {
+    title: confirmedServiceNames[6],
+    text: companyServices.regularization.description,
+    icon: "regularization",
+    href: "/regularizacao-de-empresas",
+    id: "regularizacao-de-empresas",
   },
 ];

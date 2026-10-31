@@ -34,7 +34,7 @@ A CI tem jobs de qualidade e matriz E2E, Node 24, cache npm e permissões mínim
 
 ## Serviços e compatibilidade de endereços
 
-Os cinco nomes confirmados são centralizados em `business.ts` e usados pelo catálogo e pela validação do formulário. Abertura de Empresas foi retirada da oferta comercial. A rota antiga retorna 308 para Serviços, preservando links antigos sem manter uma página comercial não confirmada. A rota não integra o sitemap. Nome da responsável e endereço são apresentados apenas conforme os dados recebidos, sem inferir formação, tempo de atuação, CNPJ ou CRC.
+Os sete nomes definitivos são centralizados em `business.ts` e usados pelo catálogo e pela validação do formulário. Abertura de Empresas volta a ser uma página própria com resposta 200, sem redirecionamento. Regularização de Empresas tem rota específica. As duas integram a navegação, o sitemap, os cartões e os assuntos do formulário. Os textos e descrições específicos são centralizados em `companyServices`, sem novas dependências. Nome da responsável e endereço são apresentados apenas conforme os dados recebidos, sem inferir formação, tempo de atuação, CNPJ ou CRC.
 
 ## Recursos de marca
 

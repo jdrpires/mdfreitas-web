@@ -3,7 +3,7 @@ import { Brand } from "./brand";
 import { ArrowUpRight } from "lucide-react";
 import { business } from "@/lib/business";
 import { greeting, whatsappMessage } from "@/lib/channels";
-import { contact } from "@/lib/site";
+import { contact, services } from "@/lib/site";
 export function Footer() {
   return (
     <footer>
@@ -26,11 +26,13 @@ export function Footer() {
         </div>
         <div>
           <h2>Soluções</h2>
-          <Link href="/contabilidade-consultiva">Contabilidade consultiva</Link>
-          <Link href="/servicos#consultoria-empresarial">
-            Consultoria Empresarial
-          </Link>
-          <Link href="/servicos#gestao-financeira">Gestão financeira</Link>
+          <nav className="footer-services" aria-label="Navegação de serviços">
+            {services.map((service) => (
+              <Link key={service.id} href={service.href}>
+                {service.title}
+              </Link>
+            ))}
+          </nav>
         </div>
         <div>
           <h2>Converse com a gente</h2>

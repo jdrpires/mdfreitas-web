@@ -14,4 +14,23 @@ export const confirmedServiceNames = [
   "Contabilidade",
   "Departamento Pessoal",
   "Departamento Fiscal",
+  "Abertura de Empresas",
+  "Regularização de Empresas",
 ] as const;
+
+export const companyServices = {
+  opening: {
+    name: "Abertura de Empresas",
+    slug: "abertura-de-empresas",
+    headline: "Seu negócio começa com uma estrutura bem planejada.",
+    description:
+      "Orientação e acompanhamento dos procedimentos necessários para a abertura e formalização de empresas, com atenção ao enquadramento tributário, às exigências cadastrais e às particularidades de cada atividade.",
+  },
+  regularization: {
+    name: "Regularização de Empresas",
+    slug: "regularizacao-de-empresas",
+    headline: "Mais tranquilidade para manter sua empresa em dia.",
+    description:
+      "Apoio na identificação e regularização de pendências cadastrais, fiscais e documentais, auxiliando empresas a recuperar sua regularidade e organizar suas obrigações.",
+  },
+};
