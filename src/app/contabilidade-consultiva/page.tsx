@@ -3,6 +3,7 @@ import { metadata as makeMetadata } from "@/lib/site";
 export const metadata = makeMetadata(
   "Contabilidade Consultiva",
   "/contabilidade-consultiva",
+  "Entenda a abordagem consultiva da M D’Freitas: informações contábeis com contexto para apoiar a organização e o planejamento do negócio.",
 );
 export default function Page() {
   return (

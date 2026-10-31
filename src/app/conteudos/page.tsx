@@ -3,7 +3,11 @@ import { ArrowUpRight } from "lucide-react";
 import { PageIntro } from "@/components/ui";
 import { articles } from "@/lib/articles";
 import { metadata as makeMetadata } from "@/lib/site";
-export const metadata = makeMetadata("Conteúdos e artigos", "/conteudos");
+export const metadata = makeMetadata(
+  "Conteúdos e artigos",
+  "/conteudos",
+  "Artigos sobre contabilidade consultiva, planejamento e empreendedorismo para apoiar decisões empresariais mais conscientes.",
+);
 export default function Page() {
   return (
     <>

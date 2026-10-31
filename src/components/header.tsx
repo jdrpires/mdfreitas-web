@@ -1,10 +1,11 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 export function Header({ brand }: { brand: React.ReactNode }) {
   const [open, setOpen] = useState(false);
+  const toggle = useRef<HTMLButtonElement>(null);
   const pathname = usePathname();
   const links = [
     ["Início", "/"],
@@ -23,6 +24,7 @@ export function Header({ brand }: { brand: React.ReactNode }) {
           {brand}
         </Link>
         <button
+          ref={toggle}
           className="menu-toggle"
           aria-label={open ? "Fechar menu" : "Abrir menu"}
           aria-expanded={open}
@@ -36,7 +38,10 @@ export function Header({ brand }: { brand: React.ReactNode }) {
           aria-label="Navegação principal"
           className={open ? "navigation is-open" : "navigation"}
           onKeyDown={(e) => {
-            if (e.key === "Escape") setOpen(false);
+            if (e.key === "Escape") {
+              setOpen(false);
+              toggle.current?.focus();
+            }
           }}
         >
           {links.map(([label, href]) => (

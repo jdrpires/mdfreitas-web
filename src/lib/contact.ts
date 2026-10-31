@@ -1,3 +1,4 @@
+import { validEmail } from "./channels.ts";
 export type ContactData = {
   name: string;
   email: string;
@@ -9,8 +10,7 @@ export type ContactData = {
 export function validateContact(data: ContactData): string | null {
   if (data.name.trim().length < 2 || data.name.length > 100)
     return "Informe seu nome, entre 2 e 100 caracteres.";
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email) || data.email.length > 254)
-    return "Informe um e-mail válido.";
+  if (!validEmail(data.email)) return "Informe um e-mail válido.";
   if (data.company.length > 160)
     return "O nome da empresa deve ter até 160 caracteres.";
   if (

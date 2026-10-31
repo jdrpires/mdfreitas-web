@@ -1,6 +1,10 @@
 import { PageIntro, ContactStrip, ServiceGrid } from "@/components/ui";
 import { services, metadata as makeMetadata } from "@/lib/site";
-export const metadata = makeMetadata("Serviços", "/servicos");
+export const metadata = makeMetadata(
+  "Serviços",
+  "/servicos",
+  "Explore soluções em consultoria empresarial, gestão financeira, contabilidade, departamento pessoal, fiscal e abertura de empresas.",
+);
 export default function Page() {
   return (
     <>

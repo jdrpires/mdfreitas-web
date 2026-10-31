@@ -1,7 +1,11 @@
 import { PageIntro } from "@/components/ui";
 import { ContactForm } from "@/components/contact-form";
 import { contact, metadata as makeMetadata } from "@/lib/site";
-export const metadata = makeMetadata("Contato", "/contato");
+export const metadata = makeMetadata(
+  "Contato",
+  "/contato",
+  "Conheça os canais disponíveis da M D’Freitas e prepare uma mensagem para conversar sobre as necessidades da sua empresa.",
+);
 export default function Page() {
   return (
     <>
@@ -39,8 +43,8 @@ export default function Page() {
           )}
           {!contact.email && !contact.whatsapp && (
             <p className="article-note">
-              Os canais de contato estão em preparação. No formulário, você pode
-              organizar e baixar sua solicitação.
+              Os canais de atendimento ainda serão disponibilizados. Aguarde a
+              atualização desta página para iniciar uma conversa.
             </p>
           )}
         </div>

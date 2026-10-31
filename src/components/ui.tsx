@@ -8,6 +8,7 @@ import {
   Files,
   Building2,
 } from "lucide-react";
+import { greeting, whatsappMessage } from "@/lib/channels";
 import { services, contact } from "@/lib/site";
 export function ContactButton({
   children = "Vamos conversar",
@@ -19,7 +20,11 @@ export function ContactButton({
   return (
     <Link
       className={`button ${light ? "button-light" : "button-dark"}`}
-      href={contact.whatsapp || "/contato"}
+      href={
+        contact.whatsapp
+          ? whatsappMessage(contact.whatsapp, greeting)
+          : "/contato"
+      }
       {...(contact.whatsapp
         ? { target: "_blank", rel: "noopener noreferrer" }
         : {})}

@@ -1,6 +1,10 @@
 import { PageIntro, ContactStrip } from "@/components/ui";
 import { metadata as makeMetadata } from "@/lib/site";
-export const metadata = makeMetadata("Sobre a M D’Freitas", "/sobre");
+export const metadata = makeMetadata(
+  "Sobre a M D’Freitas",
+  "/sobre",
+  "Conheça a proposta da M D’Freitas: proximidade, organização e visão consultiva para apoiar cada etapa da gestão empresarial.",
+);
 export default function Page() {
   return (
     <>

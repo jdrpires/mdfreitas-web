@@ -1,23 +1,22 @@
-# Roadmap
+# Roadmap de homologação
 
-## Fase 1 — Site institucional (esta entrega)
+## Site institucional — implementado
 
-Oito páginas institucionais, dois artigos, navegação responsiva, formulário validado sem simulação de envio, SEO técnico, design system, documentação, lint, testes de validação e testes de navegador. Sem plataforma autenticada ou infraestrutura operacional.
+Oito páginas institucionais, dois artigos, design responsivo, contato por canais externos configuráveis, SEO técnico, dados estruturados mínimos, headers de segurança, CI e testes. Sem canais configurados, o site não coleta mensagens nem oferece download de TXT.
 
-Pendências de conteúdo para revisão: arquivo oficial da marca, canais reais de atendimento, informações jurídicas e revisão final da política de privacidade. Confirmar o texto institucional com o responsável. A presença dos artigos não pressupõe revisão técnica externa.
+## Homologação — pendente
 
-## Fase 1.1 — Publicação após aprovação
+1. Receber o PNG oficial e revisar o logo no header e rodapé em 390, 768 e 1440 px.
+2. Confirmar contatos comerciais reais e canal de privacidade.
+3. Validar identificação jurídica, textos e serviços com a responsável.
+4. Aprovar a política de privacidade, fornecedores e prazos de retenção. O texto atual é uma versão para revisão, sem aprovação jurídica presumida.
+5. Criar e revisar um preview somente após autorização, mantendo a indexação bloqueada.
+6. Testar a abertura dos canais reais em dispositivos de atendimento, sem dados sensíveis.
 
-Revisão visual em desktop e mobile, validação do material de marca e dados oficiais, conferência de acessibilidade e política de privacidade; depois configurar Vercel, preview e domínio mediante autorização. Se for adotado envio de formulário, definir provedor, validação no servidor, limite de requisições, proteção contra abuso, entrega verificável e retenção. A ativação exige atualizar textos e testes que hoje pressupõem contato não configurado.
+## Publicação — etapa separada, não executada
 
-## Fase 2 — Portal do cliente (planejado)
+Importar/configurar Vercel, revisar a integração e seus gatilhos, autorizar publicação, associar o domínio e configurar DNS. Manter `SITE_INDEXABLE=false` até a aprovação; habilitar `true` apenas em Production quando o domínio oficial estiver pronto. Validar produção indexável e previews com noindex. Nenhum recurso pago ou merge está autorizado por este roadmap.
 
-Descoberta e modelagem de identidade, organizações e permissões antes da implementação. API independente, PostgreSQL e autenticação. Portal `app`: empresas, documentos e solicitações; administração `admin`: cadastro e tarefas. O escopo e os custos serão aprovados separadamente.
+## Projetos futuros — fora do escopo
 
-## Fase 3 — Operação contábil digital (planejada)
-
-Gestão documental privada, comunicação, obrigações e indicadores com fontes reais. Incluir auditoria, isolamento multiempresa, observabilidade e planos de recuperação antes de disponibilizar dados de clientes.
-
-## Fase 4 — Integrações, automação e IA (planejada)
-
-Avaliar integrações fiscais e contábeis por disponibilidade e requisitos legais. Adotar automações rastreáveis e IA com governança de dados e validação humana. Não existem promessas de disponibilidade dessas funcionalidades no site atual.
+Portal, administração, autenticação, gestão documental, integrações, banco e IA dependem de uma nova fase de descoberta e autorização. Não há implementação, estruturas antecipadas ou previsão de disponibilidade nesta entrega.

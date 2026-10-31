@@ -1,10 +1,10 @@
 # M D’Freitas — Consultoria & Contabilidade
 
-Site institucional em português brasileiro. Next.js 16 (App Router), React 19, TypeScript strict, Tailwind CSS 4 e Lucide. Fontes Montserrat e Lato hospedadas localmente via Fontsource. Hospedagem prevista: Vercel; domínio previsto: `mdfreitas.com.br`.
+Site institucional em português brasileiro, preparado para homologação. Next.js 16 (App Router), React 19, TypeScript strict, Tailwind CSS 4 e Lucide. Montserrat e Lato servidas localmente. Repositório: `jdrpires/mdfreitas-web`; branch de trabalho: `feat/institutional-website`; revisão na [PR #1](https://github.com/jdrpires/mdfreitas-web/pull/1).
 
-## Desenvolvimento
+## Executar localmente
 
-Requer Node.js 22.13+ (recomendado: Node 24 LTS) e npm.
+Node.js 24 LTS e npm. A versão está em `.nvmrc` e `package.json`.
 
 ```sh
 npm ci
@@ -12,41 +12,73 @@ cp .env.example .env.local
 npm run dev
 ```
 
-Acesse http://localhost:3000. Caso o cache padrão do npm não seja gravável, use `npm ci --cache /tmp/mdfreitas-npm-cache`.
+Acesse http://localhost:3000. Se o cache padrão não for gravável, acrescente `--cache /tmp/mdfreitas-npm-cache` ao comando npm de instalação.
+
+## Configuração
+
+Variáveis `NEXT_PUBLIC_*` são públicas e incorporadas ao build. Não incluir senhas ou tokens. Reconstruir o site após alterações.
+
+| Variável                      | Comportamento                                                                                                         |
+| ----------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| `NEXT_PUBLIC_WHATSAPP_NUMBER` | Número real internacional, 10–15 dígitos, sem `+`, separadores ou zero inicial. Constrói link HTTPS para `wa.me`.     |
+| `NEXT_PUBLIC_CONTACT_EMAIL`   | E-mail real para links de contato e mensagens `mailto:`. Valores inválidos não habilitam o canal.                     |
+| `NEXT_PUBLIC_PRIVACY_EMAIL`   | Canal específico para exercício de direitos LGPD, confirmado pela responsável. Independente do comercial.             |
+| `NEXT_PUBLIC_LOGO_PATH`       | Opcional. Caminho em `/branding/`. Sem valor, detecta `/branding/mdfreitas-logo.png` se o arquivo existir.            |
+| `SITE_INDEXABLE`              | Variável de servidor. Apenas `true` junto de `VERCEL_ENV=production` permite indexação. Manter `false` até aprovação. |
+
+`VERCEL_ENV` é definido pela Vercel. Previews e execução local permanecem com `noindex, nofollow` no HTML e `X-Robots-Tag`, além de `Disallow: /` em robots.txt, mesmo se `SITE_INDEXABLE=true`. O ambiente oficial, depois de aprovado, precisa de `SITE_INDEXABLE=true` no escopo Production; nesse caso os bloqueios são retirados. `noindex` não é proteção de acesso: para conteúdo restrito, usar os controles de acesso da hospedagem.
+
+## Contato e privacidade
+
+Sem WhatsApp ou e-mail válido, o site informa que os canais ainda serão disponibilizados. Não mostra campos para coleta de contato, download de TXT ou envio fictício.
+
+Com canais válidos, o formulário valida os dados e prepara links de WhatsApp e/ou e-mail. O visitante abre o canal e conclui o envio por lá; não há confirmação de entrega automática. O CTA principal do WhatsApp inclui uma mensagem inicial. Não há API de envio, persistência de leads ou serviços novos. A aplicação mantém o formulário apenas em memória. Ao abrir um canal externo, o conteúdo já pode ser processado pelo serviço antes da confirmação de envio. Não compartilhar senhas, documentos ou dados financeiros sensíveis.
+
+## Verificações
 
 ```sh
 npm run lint
-npm run test
-npm run build
 npm run typecheck
+npm test
+npm run build
+npm audit --omit=dev
+npx playwright install chromium
 npm run test:e2e
 ```
 
-Os testes de navegador precisam de Chromium: `npx playwright install chromium`. O caminho pode ser definido por `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH`; no ambiente desta entrega foi usado `/usr/bin/chromium`. O teste E2E inicia o servidor de produção, portanto rode o build primeiro. Os cenários de contato da configuração padrão pressupõem as variáveis de contato vazias.
+`typecheck` gera os tipos de rotas antes do TypeScript, inclusive em checkout limpo. `test:e2e` faz builds separados e executa Chromium nos cenários `none`, `whatsapp` e `email`; usa somente fixtures de teste, sem abrir os canais externos. Para rodar um cenário: `CONTACT_TEST_SCENARIO=none npm run test:e2e`. Na máquina desta revisão, o navegador é selecionado com `PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=/usr/bin/chromium`.
 
-## Configuração pública
+A porta 3100 precisa estar livre. Os E2E substituem `.next` por builds com contatos fictícios identificados como fixtures no código. Após os testes, sempre execute `npm run build` novamente com a configuração real antes de usar o servidor normal ou preparar uma publicação. Nenhum teste faz deploy.
 
-Veja `.env.example`. Valores `NEXT_PUBLIC_*` fazem parte do bundle e nunca devem conter segredos. Alterações exigem novo build.
+A CI em `.github/workflows/ci.yml` executa instalação, lint, tipos, unitários, build e auditoria; um job separado testa os três cenários com Chromium. Usa Node 24, cache npm e permissão somente de leitura de conteúdo. Não usa segredos de produção nem configura publicação.
 
-- `NEXT_PUBLIC_CONTACT_EMAIL`: e-mail real de atendimento.
-- `NEXT_PUBLIC_WHATSAPP_NUMBER`: número internacional real, somente dígitos.
-- `NEXT_PUBLIC_LOGO_PATH`: caminho da imagem oficial em `public/branding/`, por exemplo `/branding/mdfreitas-logo.png`.
+## Páginas e SEO
 
-Nenhum telefone, endereço, registro ou e-mail foi inventado. Sem canais configurados, o formulário valida e baixa a solicitação em arquivo de texto; informa que nenhuma mensagem foi enviada. Com WhatsApp, prepara a mensagem nesse serviço; com apenas e-mail, abre o aplicativo por `mailto:`. O usuário precisa finalizar o envio no canal externo. Não há API de envio, banco ou armazenamento de leads nesta fase.
+Home, Sobre, Serviços, Contabilidade Consultiva, Abertura de Empresas, Conteúdos, Contato e Política de Privacidade, além de dois artigos. Inclui metadata individual, canonical oficial, Open Graph/Twitter, imagem de compartilhamento, sitemap, robots, HTML semântico e JSON-LD `Organization` apenas com nome e domínio. Não há dados estruturados de endereço, avaliações ou registros não confirmados.
 
-## Páginas
+## Preparação para Vercel
 
-`/`, `/sobre`, `/servicos`, `/contabilidade-consultiva`, `/abertura-de-empresas`, `/conteudos`, `/contato`, `/politica-de-privacidade`, além de dois artigos em `/conteudos/[slug]`. Metadados por página, imagem Open Graph, sitemap, robots, página 404 e cabeçalhos básicos de segurança.
+1. Após autorização, importar o repositório como projeto Next.js, com Node 24 e build `npm run build`. Não há etapa de banco de dados.
+2. Configurar os contatos reais e o canal de privacidade nos escopos desejados. Adicionar a imagem oficial ao repositório. Manter `SITE_INDEXABLE=false` durante a homologação.
+3. Gerar um Preview Deployment para revisar o visual e os fluxos. Confirmar `VERCEL_ENV=preview`, HTML `noindex`, header `X-Robots-Tag` e robots.txt. Proteger o preview na hospedagem se necessário.
+4. Após aprovação de conteúdo, marca e política, preparar o ambiente Production com os dados reais e `SITE_INDEXABLE=true`. A Vercel deverá fornecer `VERCEL_ENV=production`.
+5. A associação futura de `mdfreitas.com.br` e a alteração de DNS exigem uma etapa autorizada separada. O domínio canônico já está definido em `src/lib/site.ts`; não foi configurado nesta revisão.
+6. Depois de uma publicação autorizada, conferir que o domínio oficial permite indexação e que os previews continuam bloqueados.
 
-## Revisão antes da publicação
+Nenhum deploy, merge, alteração de DNS ou recurso pago é realizado pelos scripts ou workflow deste repositório. Uma integração Vercel conectada futuramente deve ser revisada quanto aos gatilhos de publicação antes de sua ativação.
 
-O site está preparado para revisão, não publicado. Incorporar o arquivo oficial do logotipo (disponível visualmente na conversa, ausente no executor), configurar contatos reais, confirmar informações institucionais e revisar a política com a identificação do responsável, canal de privacidade, hospedagem e retenção efetivos. O fallback do cabeçalho é o nome em texto, não uma recriação da marca. Não há dados de clientes, métricas inventadas ou depoimentos.
+## Pendências para homologação e publicação
 
-## Vercel
+- Arquivo oficial `public/branding/mdfreitas-logo.png`: ausente no executor; fallback textual preservado. Conferir nitidez, proporção e contraste nos três tamanhos quando o PNG chegar.
+- Telefones e e-mails reais, incluindo o canal de privacidade.
+- Identificação jurídica completa e dados do responsável.
+- Revisão institucional e técnica do conteúdo pela responsável.
+- Validação e aprovação da Política de Privacidade, inclusive fornecedores e retenção.
+- Homologação visual e funcional; publicação e domínio somente após autorização.
 
-Após aprovação da revisão, importar o repositório na Vercel, selecionar Next.js, usar `npm run build` e cadastrar apenas as variáveis necessárias. Revisar a URL de preview antes de qualquer publicação de produção. Nenhuma infraestrutura, DNS ou publicação faz parte desta entrega.
+Não foram implementados portal, administração, autenticação, banco, APIs contábeis ou infraestrutura SaaS.
 
 - [Arquitetura](docs/architecture.md)
 - [Roadmap](docs/roadmap.md)
 - [Design system](docs/design-system.md)
-- [Validações e capturas](docs/validation.md)
+- [Validação e capturas](docs/validation.md)

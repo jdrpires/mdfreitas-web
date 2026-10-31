@@ -1170,3 +1170,32 @@ footer {
     transition: none !important;
   }
 }
+
+.prepared-channels {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  margin-top: 20px;
+}
+.prepared-channels .button {
+  margin-top: 0;
+}
+.brand-image {
+  max-width: 200px;
+  max-height: 84px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}
+@media (max-width: 580px) {
+  .brand-image {
+    max-width: 180px;
+    max-height: 64px;
+  }
+  .prepared-channels .button {
+    width: 100%;
+    padding-inline: 14px;
+    gap: 12px;
+  }
+}

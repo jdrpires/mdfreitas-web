@@ -1,15 +1,15 @@
 {
   "name": "mdfreitas-web",
   "version": "0.1.0",
-  "description": "Site institucional da M D\u2019Freitas \u2014 Consultoria & Contabilidade",
+  "description": "Site institucional da M D’Freitas — Consultoria & Contabilidade",
   "scripts": {
     "dev": "next dev --hostname 0.0.0.0",
     "build": "next build",
     "start": "next start --hostname 0.0.0.0",
     "lint": "eslint .",
-    "typecheck": "tsc --noEmit",
-    "test": "node --experimental-strip-types --test tests/contact.test.ts",
-    "test:e2e": "playwright test"
+    "typecheck": "next typegen && tsc --noEmit",
+    "test": "node --experimental-strip-types --test tests/*.test.ts",
+    "test:e2e": "node scripts/test-e2e.mjs"
   },
   "repository": {
     "type": "git",
@@ -40,5 +40,8 @@
     "eslint-config-next": "^16.4.3",
     "tailwindcss": "^4.3.3",
     "typescript": "^6.0.3"
+  },
+  "engines": {
+    "node": ">=24 <25"
   }
 }

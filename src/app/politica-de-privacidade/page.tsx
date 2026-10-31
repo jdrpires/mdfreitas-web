@@ -3,6 +3,7 @@ import { contact, metadata as makeMetadata } from "@/lib/site";
 export const metadata = makeMetadata(
   "Política de Privacidade",
   "/politica-de-privacidade",
+  "Como o site institucional da M D’Freitas trata a navegação e a preparação de mensagens de contato. Documento pendente de validação jurídica.",
 );
 export default function Page() {
   return (
@@ -10,80 +11,98 @@ export default function Page() {
       <PageIntro
         eyebrow="TRANSPARÊNCIA & CUIDADO"
         title="Política de Privacidade"
-        text="Conheça como este site trata as informações durante sua navegação e ao preparar uma solicitação de contato."
+        text="Como tratamos as informações durante sua navegação e ao preparar uma mensagem de contato."
       />
       <article className="section container prose">
-        <h2>Sobre esta política</h2>
+        <aside className="article-note">
+          Versão para revisão. Este documento ainda depende de validação pela
+          responsável pelo escritório e não está juridicamente aprovado.
+        </aside>
+        <h2>Responsável e escopo</h2>
         <p>
-          Esta política descreve a versão institucional do site da M D’Freitas.
-          O responsável é a M D’Freitas — Consultoria & Contabilidade. A
-          identificação jurídica completa e o canal dedicado à privacidade
-          deverão ser disponibilizados antes da abertura do atendimento ao
-          público.
+          Esta política se refere ao site institucional da M D’Freitas —
+          Consultoria & Contabilidade. A identificação jurídica completa, os
+          responsáveis pelo atendimento à privacidade e os procedimentos
+          operacionais ainda precisam ser confirmados antes da publicação.
         </p>
-        <h2>Informações de contato</h2>
+        <h2>Formulário e preparação de mensagens</h2>
         <p>
-          O formulário solicita nome, e-mail, empresa opcional, assunto e
-          mensagem. Os dados são processados no seu navegador para preparar uma
-          solicitação. Nesta versão, não há armazenamento desses dados em banco
-          de dados do site.
+          Quando há WhatsApp ou e-mail configurado, o formulário solicita nome,
+          e-mail, empresa opcional, assunto e mensagem. A validação e a
+          preparação da mensagem acontecem no navegador, em memória, sem
+          gravação pelo código do site em cookies, localStorage, sessionStorage
+          ou banco de dados. O navegador pode oferecer recursos próprios de
+          preenchimento automático.
         </p>
         <p>
-          Quando há um canal de atendimento disponível, o envio é concluído por
-          você no aplicativo de e-mail ou WhatsApp. Esses serviços possuem
-          políticas próprias. Sem um canal configurado, você pode baixar um
-          arquivo de texto, sem transmissão da solicitação ao escritório.
+          Após preparar a mensagem, você escolhe abrir o WhatsApp ou seu
+          aplicativo de e-mail. O conteúdo preenchido é incluído no link para
+          esse canal e pode ser processado pelo aplicativo ou serviço ao
+          abri-lo, antes mesmo de confirmar o envio. Revise a mensagem e conclua
+          o envio por lá. Esses serviços possuem políticas próprias. O site não
+          confirma a entrega.
         </p>
-        <h2>Finalidade e fundamento</h2>
         <p>
-          O uso das informações de uma solicitação tem como finalidade responder
-          ao contato e avaliar eventual prestação de serviços, quando solicitado
-          pelo titular. O tratamento pode se apoiar nos procedimentos
-          preliminares relacionados a contrato, a pedido do titular, e no
-          cumprimento de obrigações legais quando aplicável. O aceite da
-          política registra ciência e não autoriza marketing.
+          Sem canais configurados, não há campos para coleta de contato nem
+          opção de envio ou download de solicitações. Não inclua senhas,
+          documentos ou informações financeiras sensíveis nas mensagens.
         </p>
-        <h2>Navegação e serviços técnicos</h2>
+        <h2>Finalidades e fundamentos</h2>
         <p>
-          Este projeto não inclui ferramentas de publicidade, analytics ou
-          cookies de rastreamento. Fontes são servidas pelo próprio site. O
-          provedor de hospedagem poderá processar registros técnicos, como
-          endereço IP e dados de requisição, para operação e segurança, conforme
-          a configuração e política do serviço contratado.
+          O contato visa responder a dúvidas e avaliar eventual prestação de
+          serviços a pedido do titular. O escritório deverá validar as bases
+          legais aplicáveis, incluindo procedimentos preliminares relacionados a
+          contrato a pedido do titular e obrigações legais, conforme cada
+          situação. A confirmação de leitura desta política não autoriza
+          marketing.
         </p>
-        <h2>Retenção e compartilhamento</h2>
+        <h2>Navegação e hospedagem</h2>
         <p>
-          Arquivos baixados permanecem sob seu controle. Mensagens enviadas por
-          canais externos seguem os períodos e condições desses serviços. Antes
-          de ativar o atendimento, o escritório deverá definir os prazos de
-          retenção, responsáveis e fornecedores envolvidos. Dados não devem ser
-          mantidos além do necessário às finalidades e obrigações aplicáveis.
+          O projeto não inclui analytics, publicidade ou cookies de
+          rastreamento. As fontes são hospedadas junto ao site. O provedor de
+          hospedagem poderá tratar registros técnicos, como IP e dados de
+          requisição, para operação e segurança. A configuração, os fornecedores
+          e eventuais transferências internacionais deverão ser avaliados antes
+          da publicação.
         </p>
-        <h2>Seus direitos</h2>
+        <h2>Compartilhamento e retenção</h2>
         <p>
-          Nos termos da LGPD, você pode solicitar confirmação de tratamento,
-          acesso, correção, informações sobre compartilhamento e, quando
-          aplicável, eliminação, anonimização, portabilidade e revogação de
-          consentimento. Os pedidos dependem de verificação de identidade e das
-          condições legais.
+          Ao abrir um canal externo, os dados da mensagem passam a ser tratados
+          também por esse serviço. O escritório deverá definir os fornecedores,
+          os controles de acesso e os prazos de retenção das mensagens
+          recebidas. Não é possível afirmar um prazo nesta versão. As
+          informações devem ser limitadas ao necessário às finalidades e
+          obrigações aplicáveis.
         </p>
-        {contact.email ? (
+        <h2>Direitos do titular</h2>
+        <p>
+          Conforme a LGPD e suas condições legais, você pode solicitar
+          confirmação de tratamento, acesso, correção, informações sobre
+          compartilhamento e, quando aplicável, eliminação, anonimização,
+          portabilidade ou revogação de consentimento. O atendimento poderá
+          exigir verificação de identidade.
+        </p>
+        {contact.privacyEmail ? (
           <p>
-            Entre em contato pelo e-mail{" "}
-            <a href={`mailto:${contact.email}`}>{contact.email}</a> para tratar
-            de seus dados pessoais.
+            Para solicitações sobre dados pessoais, utilize{" "}
+            <a href={`mailto:${contact.privacyEmail}`}>
+              {contact.privacyEmail}
+            </a>
+            .
           </p>
         ) : (
           <p>
-            O canal para solicitações de privacidade ainda está em preparação e
-            deverá ser informado antes da ativação do atendimento. O formulário
-            atual não transmite dados ao escritório.
+            O canal específico de privacidade ainda será disponibilizado. Essa
+            definição é uma pendência obrigatória antes da publicação e não deve
+            ser substituída por um contato presumido.
           </p>
         )}
-        <h2>Atualizações</h2>
+        <h2>Revisão desta política</h2>
         <p>
-          Esta política deverá ser revista quando novos serviços, canais ou
-          funcionalidades forem ativados. Versão de 31 de outubro de 2026.
+          Versão de 31 de outubro de 2026. Rever este texto quando os canais, a
+          hospedagem ou o tratamento de dados mudarem. Identificação jurídica,
+          bases legais, retenção e canal de privacidade aguardam validação pela
+          responsável.
         </p>
       </article>
     </>

@@ -1,8 +1,9 @@
 "use client";
 import Link from "next/link";
 import { useState } from "react";
-import { ArrowUpRight, Download } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { validateContact, requestText, type ContactData } from "@/lib/contact";
+import { emailMessage, whatsappMessage } from "@/lib/channels";
 import { services } from "@/lib/site";
 export function ContactForm({
   email,
@@ -12,12 +13,13 @@ export function ContactForm({
   whatsapp: string;
 }) {
   const [error, setError] = useState("");
-  const [status, setStatus] = useState("");
+  const [prepared, setPrepared] = useState("");
   const available = Boolean(email || whatsapp);
   function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setError("");
-    setStatus("");
+    setPrepared("");
+    if (!available) return;
     const form = new FormData(e.currentTarget);
     const data: ContactData = {
       name: String(form.get("name") || ""),
@@ -32,42 +34,36 @@ export function ContactForm({
       setError(issue);
       return;
     }
-    const text = requestText(data);
-    if (whatsapp) {
-      // whatsapp is a validated absolute https://wa.me/ URL, not an internal route.
-      // eslint-disable-next-line @next/next/no-location-assign-relative-destination
-      window.location.assign(`${whatsapp}?text=${encodeURIComponent(text)}`);
-      setStatus(
-        "O WhatsApp será aberto com sua mensagem. Confirme o envio por lá.",
-      );
-    } else if (email) {
-      window.location.assign(
-        `mailto:${email}?subject=${encodeURIComponent(`Contato: ${data.service}`)}&body=${encodeURIComponent(text)}`,
-      );
-      setStatus(
-        "Seu aplicativo de e-mail será aberto. Confirme o envio por lá.",
-      );
-    } else {
-      const url = URL.createObjectURL(
-        new Blob([text], { type: "text/plain;charset=utf-8" }),
-      );
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "solicitacao-mdfreitas.txt";
-      a.click();
-      setTimeout(() => URL.revokeObjectURL(url), 1000);
-      setStatus(
-        "Solicitação preparada para download. Nenhuma mensagem foi enviada. Guarde o arquivo até que os canais de atendimento estejam disponíveis.",
-      );
-    }
+    setPrepared(requestText(data));
   }
+  if (!available)
+    return (
+      <section
+        className="contact-form"
+        aria-label="Disponibilidade do atendimento"
+      >
+        <h2>Em breve, mais perto de você.</h2>
+        <p>
+          Os canais de atendimento ainda serão disponibilizados. Assim que
+          estiverem disponíveis, você poderá conversar com a M D’Freitas por
+          aqui.
+        </p>
+        <p>Nenhuma solicitação pode ser enviada por este site neste momento.</p>
+      </section>
+    );
   return (
-    <form className="contact-form" onSubmit={submit}>
+    <form
+      className="contact-form"
+      onSubmit={submit}
+      onChange={() => {
+        setPrepared("");
+        setError("");
+      }}
+    >
       <h2>Conte um pouco sobre você.</h2>
       <p>
-        {available
-          ? "Prepare sua mensagem e finalize o envio no canal de atendimento."
-          : "Os canais de atendimento serão disponibilizados em breve. Você pode preencher e baixar sua solicitação; este formulário ainda não envia mensagens."}
+        Prepare sua mensagem e escolha um dos canais disponíveis para concluir o
+        envio.
       </p>
       <div className="form-grid">
         <label>
@@ -137,12 +133,35 @@ export function ContactForm({
         {error}
       </p>
       <p className="form-message" role="status">
-        {status}
+        {prepared
+          ? "Mensagem preparada. Abra o canal abaixo e confirme o envio por lá. Nenhuma mensagem foi enviada automaticamente."
+          : ""}
       </p>
       <button className="button button-dark" type="submit">
-        {available ? "Preparar mensagem" : "Baixar solicitação"}
-        {available ? <ArrowUpRight size={18} /> : <Download size={18} />}
+        Preparar mensagem <ArrowUpRight size={18} />
       </button>
+      {prepared && (
+        <div className="prepared-channels">
+          {whatsapp && (
+            <a
+              className="button button-dark"
+              href={whatsappMessage(whatsapp, prepared)}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Abrir WhatsApp com mensagem <ArrowUpRight size={18} />
+            </a>
+          )}
+          {email && (
+            <a
+              className="button button-dark"
+              href={emailMessage(email, "Contato — M D’Freitas", prepared)}
+            >
+              Abrir aplicativo de e-mail <ArrowUpRight size={18} />
+            </a>
+          )}
+        </div>
+      )}
       <small>
         Evite incluir senhas, documentos ou dados financeiros sensíveis.
       </small>

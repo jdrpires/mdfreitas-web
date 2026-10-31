@@ -3,6 +3,7 @@ import { metadata as makeMetadata } from "@/lib/site";
 export const metadata = makeMetadata(
   "Abertura De Empresas",
   "/abertura-de-empresas",
+  "Orientação para planejar a abertura de sua empresa, avaliar a estrutura do negócio e organizar os documentos e próximos passos.",
 );
 export default function Page() {
   return (

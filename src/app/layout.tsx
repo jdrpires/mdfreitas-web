@@ -8,8 +8,12 @@ import "./globals.css";
 import { Header } from "@/components/header";
 import { Footer } from "@/components/footer";
 import { Brand } from "@/components/brand";
-import { site } from "@/lib/site";
+import { isIndexable } from "@/lib/deployment";
+import { site, organization } from "@/lib/site";
 export const metadata: Metadata = {
+  robots: isIndexable(process.env)
+    ? { index: true, follow: true }
+    : { index: false, follow: false },
   metadataBase: new URL(site.url),
   title: {
     default: "M D’Freitas — Consultoria & Contabilidade",
@@ -31,6 +35,12 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organization).replace(/</g, "\\u003c"),
+          }}
+        />
         <a className="skip-link" href="#conteudo">
           Pular para o conteúdo
         </a>
