@@ -1,5 +1,8 @@
 import Link from "next/link";
 import { Brand } from "./brand";
+import { ArrowUpRight } from "lucide-react";
+import { business } from "@/lib/business";
+import { greeting, whatsappMessage } from "@/lib/channels";
 import { contact } from "@/lib/site";
 export function Footer() {
   return (
@@ -24,24 +27,29 @@ export function Footer() {
         <div>
           <h2>Soluções</h2>
           <Link href="/contabilidade-consultiva">Contabilidade consultiva</Link>
-          <Link href="/abertura-de-empresas">Abertura de empresas</Link>
+          <Link href="/servicos#consultoria-empresarial">
+            Consultoria Empresarial
+          </Link>
           <Link href="/servicos#gestao-financeira">Gestão financeira</Link>
         </div>
         <div>
           <h2>Converse com a gente</h2>
-          <Link href="/contato">Entre em contato ↗</Link>
+          <Link href="/contato">
+            Entre em contato <ArrowUpRight size={13} aria-hidden="true" />
+          </Link>
           {contact.email && (
             <a href={`mailto:${contact.email}`}>{contact.email}</a>
           )}
           {contact.whatsapp && (
             <a
-              href={contact.whatsapp}
+              href={whatsappMessage(contact.whatsapp, greeting)}
               target="_blank"
               rel="noopener noreferrer"
             >
-              WhatsApp ↗
+              WhatsApp <ArrowUpRight size={13} aria-hidden="true" />
             </a>
           )}
+          <address>{business.address}</address>
           <span>
             Atendimento próximo.
             <br />

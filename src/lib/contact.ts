@@ -1,3 +1,4 @@
+import { confirmedServiceNames } from "./business.ts";
 import { validEmail } from "./channels.ts";
 export type ContactData = {
   name: string;
@@ -13,17 +14,7 @@ export function validateContact(data: ContactData): string | null {
   if (!validEmail(data.email)) return "Informe um e-mail válido.";
   if (data.company.length > 160)
     return "O nome da empresa deve ter até 160 caracteres.";
-  if (
-    ![
-      "Consultoria empresarial",
-      "Gestão financeira",
-      "Contabilidade",
-      "Departamento pessoal",
-      "Departamento fiscal",
-      "Abertura de empresas",
-      "Outra necessidade",
-    ].includes(data.service)
-  )
+  if (![...confirmedServiceNames, "Outra necessidade"].includes(data.service))
     return "Selecione o assunto da conversa.";
   if (data.message.trim().length < 10 || data.message.length > 3000)
     return "Escreva uma mensagem entre 10 e 3.000 caracteres.";

@@ -1,13 +1,13 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 const scenario = process.env.CONTACT_TEST_SCENARIO ?? "none";
+const hasWhatsapp = scenario === "whatsapp" || scenario === "official";
 const configured = scenario !== "none";
 const routes = [
   "/",
   "/sobre",
   "/servicos",
   "/contabilidade-consultiva",
-  "/abertura-de-empresas",
   "/conteudos",
   "/contato",
   "/politica-de-privacidade",
@@ -174,17 +174,23 @@ test("contact reflects actual configured channels without fake delivery", async 
       .getAttribute("href"))!,
   );
   expect(mail.protocol).toBe("mailto:");
-  expect(mail.pathname).toBe("qa-contact@example.invalid");
+  expect(mail.pathname).toBe(
+    scenario === "official"
+      ? "contato@mdfreitas.com.br"
+      : "qa-contact@example.invalid",
+  );
   expect(mail.searchParams.get("body")).toContain(
     "Dúvida: <script>alert(1)</script> & impostos?",
   );
-  if (scenario === "whatsapp") {
+  if (hasWhatsapp) {
     const link = page.getByRole("link", {
       name: "Abrir WhatsApp com mensagem",
     });
     const wa = new URL((await link.getAttribute("href"))!);
     expect(wa.origin).toBe("https://wa.me");
-    expect(wa.pathname).toBe("/12025550100");
+    expect(wa.pathname).toBe(
+      scenario === "official" ? "/5516997379559" : "/12025550100",
+    );
     expect(wa.searchParams.get("text")).toContain("Maria & Silva");
     await expect(link).toHaveAttribute("rel", "noopener noreferrer");
   } else
@@ -209,7 +215,7 @@ test("primary CTA includes a greeting when WhatsApp is available", async ({
     exact: true,
   });
   const href = (await link.getAttribute("href"))!;
-  if (scenario === "whatsapp") {
+  if (hasWhatsapp) {
     const url = new URL(href);
     expect(url.origin).toBe("https://wa.me");
     expect(url.searchParams.get("text")).toContain("Gostaria de conhecer");
@@ -247,7 +253,7 @@ test("preview indexing guard and production opt-in agree across headers and robo
 test("privacy channel is independent from sales contact", async ({ page }) => {
   await page.goto("/politica-de-privacidade");
   await expect(page.getByText(/não está juridicamente aprovado/)).toBeVisible();
-  if (configured)
+  if (configured && scenario !== "official")
     await expect(
       page.getByRole("link", { name: "qa-privacy@example.invalid" }),
     ).toHaveAttribute("href", "mailto:qa-privacy@example.invalid");
@@ -279,4 +285,92 @@ test("automated WCAG A-AA checks in desktop and mobile", async ({ page }) => {
       ).toEqual([]);
     }
   }
+});
+
+test("only confirmed services are offered and the retired address redirects safely", async ({
+  page,
+  request,
+}) => {
+  await page.goto("/servicos");
+  await expect(page.locator(".service-card")).toHaveCount(5);
+  await expect(page.locator('a[href="/abertura-de-empresas"]')).toHaveCount(0);
+  await expect(page.locator(".service-card h3")).toHaveText([
+    "Consultoria Empresarial",
+    "Gestão Financeira",
+    "Contabilidade",
+    "Departamento Pessoal",
+    "Departamento Fiscal",
+  ]);
+  const response = await request.get("/abertura-de-empresas", {
+    maxRedirects: 0,
+  });
+  expect(response.status()).toBe(308);
+  expect(response.headers().location).toBe("/servicos");
+  expect(await (await request.get("/sitemap.xml")).text()).not.toContain(
+    "/abertura-de-empresas",
+  );
+  if (configured) {
+    await page.goto("/contato");
+    await expect(page.locator('select[name="service"] option')).toHaveCount(7);
+    await expect(page.locator('select[name="service"]')).not.toContainText(
+      "Abertura de empresas",
+    );
+  }
+});
+test("approved headline and verified public details appear without invented credentials", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await expect(page.locator("h1")).toHaveText(
+    "Mais do que números.Estratégia para o seu crescimento.",
+  );
+  await expect(page.locator(".hero-copy>p").last()).toHaveText(
+    "Estratégia, organização e confiança para o seu negócio.",
+  );
+  await page.goto("/contato");
+  await expect(page.locator(".office-details")).toContainText(
+    "Rua Aquidaban, 1, Sala 2, Centro, São Carlos — SP",
+  );
+  await expect(page.locator(".office-details")).toContainText("Monica Freitas");
+  expect(await page.locator("body").innerText()).not.toMatch(
+    /CNPJ\s*[:–-]?\s*\d|CRC\s*[:–-]?\s*\d/i,
+  );
+});
+
+test("official logo loads in header and footer and keeps a light contrast plate", async ({
+  page,
+  request,
+}) => {
+  await page.goto("/");
+  const logos = page.getByRole("img", {
+    name: "M D’Freitas — Consultoria & Contabilidade",
+    exact: true,
+  });
+  await expect(logos).toHaveCount(2);
+  for (const image of await logos.all()) {
+    await expect(image).toBeVisible();
+    await expect
+      .poll(() =>
+        image.evaluate((el) => ({
+          loaded:
+            (el as HTMLImageElement).complete &&
+            (el as HTMLImageElement).naturalWidth > 0,
+        })),
+      )
+      .toEqual({ loaded: true });
+    expect(await image.evaluate((el) => getComputedStyle(el).objectFit)).toBe(
+      "contain",
+    );
+    expect(
+      await image.evaluate((el) => getComputedStyle(el).backgroundColor),
+    ).toBe("rgb(252, 250, 247)");
+  }
+  await page.locator(".header").evaluate((el) => {
+    (el as HTMLElement).style.backgroundColor = "#10291F";
+  });
+  expect(
+    await logos.first().evaluate((el) => getComputedStyle(el).backgroundColor),
+  ).toBe("rgb(252, 250, 247)");
+  expect((await request.get("/favicon.ico")).status()).toBe(200);
+  expect((await request.get("/icon.png")).status()).toBe(200);
 });

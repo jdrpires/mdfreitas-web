@@ -1,3 +1,4 @@
+import { business } from "@/lib/business";
 import { PageIntro, ContactStrip } from "@/components/ui";
 import { metadata as makeMetadata } from "@/lib/site";
 export const metadata = makeMetadata(
@@ -16,9 +17,9 @@ export default function Page() {
       <section className="section container prose">
         <h2>Mais do que acompanhar. Compreender.</h2>
         <p>
-          A M D’Freitas nasce de uma visão: as informações contábeis precisam
-          fazer sentido para quem empreende. A organização das rotinas e a
-          interpretação dos números devem caminhar juntas.
+          Estratégia, organização e confiança para o seu negócio. As informações
+          contábeis precisam fazer sentido para quem empreende, conectando a
+          organização das rotinas à interpretação dos números.
         </p>
         <p>
           Nossa proposta é construir relações de confiança por meio da escuta,
@@ -31,6 +32,8 @@ export default function Page() {
           pilares da nossa abordagem consultiva. Valorizamos o planejamento e a
           comunicação próxima, com atenção aos detalhes que impactam a gestão.
         </p>
+        <h2>Responsável</h2>
+        <p>{business.responsible}</p>
         <h2>Modernização com propósito</h2>
         <p>
           A tecnologia faz parte da nossa visão de evolução. Cada melhoria deve

@@ -11,11 +11,11 @@ concurrency:
   cancel-in-progress: true
 jobs:
   quality:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with:
           node-version: "24"
           cache: npm
@@ -26,15 +26,15 @@ jobs:
       - run: npm run build
       - run: npm audit --omit=dev
   e2e:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 20
     strategy:
       fail-fast: false
       matrix:
-        scenario: [none, whatsapp, email]
+        scenario: [none, whatsapp, email, official]
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with:
           node-version: "24"
           cache: npm
@@ -43,7 +43,7 @@ jobs:
       - run: npm run test:e2e
         env:
           CONTACT_TEST_SCENARIO: ${{ matrix.scenario }}
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v5
         if: failure()
         with:
           name: e2e-${{ matrix.scenario }}

@@ -3,7 +3,7 @@ import { services, metadata as makeMetadata } from "@/lib/site";
 export const metadata = makeMetadata(
   "Serviços",
   "/servicos",
-  "Explore soluções em consultoria empresarial, gestão financeira, contabilidade, departamento pessoal, fiscal e abertura de empresas.",
+  "Explore soluções em consultoria empresarial, gestão financeira, contabilidade, departamento pessoal e departamento fiscal.",
 );
 export default function Page() {
   return (

@@ -1,3 +1,6 @@
+import { business } from "@/lib/business";
+import { greeting, whatsappMessage } from "@/lib/channels";
+import { ArrowUpRight } from "lucide-react";
 import { PageIntro } from "@/components/ui";
 import { ContactForm } from "@/components/contact-form";
 import { contact, metadata as makeMetadata } from "@/lib/site";
@@ -29,11 +32,12 @@ export default function Page() {
           {contact.whatsapp && (
             <a
               className="text-link"
-              href={contact.whatsapp}
+              href={whatsappMessage(contact.whatsapp, greeting)}
               target="_blank"
               rel="noopener noreferrer"
             >
-              Conversar pelo WhatsApp ↗
+              Conversar pelo WhatsApp{" "}
+              <ArrowUpRight size={16} aria-hidden="true" />
             </a>
           )}
           {contact.email && (
@@ -41,6 +45,11 @@ export default function Page() {
               {contact.email}
             </a>
           )}
+          <div className="office-details">
+            <h3>Onde estamos</h3>
+            <address>{business.address}</address>
+            <p>Responsável: {business.responsible}</p>
+          </div>
           {!contact.email && !contact.whatsapp && (
             <p className="article-note">
               Os canais de atendimento ainda serão disponibilizados. Aguarde a

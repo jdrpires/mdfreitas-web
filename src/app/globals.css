@@ -1199,3 +1199,67 @@ footer {
     gap: 12px;
   }
 }
+
+.office-details {
+  border-top: 1px solid var(--line);
+  margin-top: 30px;
+  padding-top: 24px;
+}
+.office-details h3 {
+  font-size: 18px;
+  margin-bottom: 12px;
+}
+.office-details p,
+.office-details address {
+  font-size: 14px;
+  color: var(--muted);
+}
+address {
+  font-style: normal;
+}
+.footer-grid address {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 14px;
+  max-width: 210px;
+}
+.footer-grid a:has(svg) {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.service-card:last-child {
+  grid-column: auto;
+}
+@media (min-width: 801px) {
+  .service-card:last-child {
+    grid-column: span 2;
+  }
+}
+
+/* Preserve the official artwork; a light plate keeps the original colors legible on dark surfaces. */
+.brand-image {
+  width: 220px;
+  max-width: 100%;
+  height: auto;
+  max-height: none;
+  object-fit: contain;
+  background-color: var(--paper);
+}
+.header-inner {
+  min-height: 136px;
+}
+@media (max-width: 800px) {
+  .header-inner {
+    min-height: 120px;
+  }
+  .brand-image {
+    width: 190px;
+    max-width: 100%;
+    height: auto;
+    max-height: none;
+  }
+  .navigation {
+    top: 120px;
+  }
+}

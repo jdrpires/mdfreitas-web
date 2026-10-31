@@ -12,7 +12,7 @@ import { ContactButton, ServiceGrid, ContactStrip } from "@/components/ui";
 import { contact, metadata as makeMetadata } from "@/lib/site";
 import { ContactForm } from "@/components/contact-form";
 export const metadata = makeMetadata(
-  "Estratégia, organização e confiança para o seu negócio",
+  "Mais do que números. Estratégia para o seu crescimento.",
   "/",
 );
 export default function Home() {
@@ -25,16 +25,11 @@ export default function Home() {
               <span className="small-line" /> CONSULTORIA & CONTABILIDADE
             </p>
             <h1>
-              Mais clareza.
+              Mais do que números.
               <br />
-              Mais estratégia.
-              <br />
-              <span>Novas possibilidades.</span>
+              <span>Estratégia para o seu crescimento.</span>
             </h1>
-            <p>
-              Mais do que números, uma parceria para cuidar do presente e
-              construir o futuro do seu negócio.
-            </p>
+            <p>Estratégia, organização e confiança para o seu negócio.</p>
             <div className="hero-actions">
               <ContactButton>Converse com a gente</ContactButton>
               <Link className="text-link" href="/servicos">

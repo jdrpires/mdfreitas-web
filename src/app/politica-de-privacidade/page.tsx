@@ -1,3 +1,4 @@
+import { business } from "@/lib/business";
 import { PageIntro } from "@/components/ui";
 import { contact, metadata as makeMetadata } from "@/lib/site";
 export const metadata = makeMetadata(
@@ -20,10 +21,18 @@ export default function Page() {
         </aside>
         <h2>Responsável e escopo</h2>
         <p>
-          Esta política se refere ao site institucional da M D’Freitas —
-          Consultoria & Contabilidade. A identificação jurídica completa, os
-          responsáveis pelo atendimento à privacidade e os procedimentos
-          operacionais ainda precisam ser confirmados antes da publicação.
+          Esta minuta se refere ao site institucional da {business.name}.
+          Responsável informada: {business.responsible}. Endereço informado:{" "}
+          {business.address}.
+        </p>
+        <p>
+          Contato comercial:{" "}
+          <a href={`mailto:${contact.email || business.email}`}>
+            {contact.email || business.email}
+          </a>
+          . A identificação jurídica completa, os registros e a designação do
+          canal específico de privacidade dependem de validação. CNPJ e CRC não
+          são publicados nesta etapa.
         </p>
         <h2>Formulário e preparação de mensagens</h2>
         <p>

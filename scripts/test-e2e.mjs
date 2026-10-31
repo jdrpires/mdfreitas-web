@@ -1,9 +1,11 @@
 import { spawnSync } from "node:child_process";
 // Test-only fixtures. Never substitute these values for the actual business contacts.
 const requested = process.env.CONTACT_TEST_SCENARIO;
-const scenarios = requested ? [requested] : ["none", "whatsapp", "email"];
+const scenarios = requested
+  ? [requested]
+  : ["none", "whatsapp", "email", "official"];
 for (const scenario of scenarios) {
-  if (!["none", "whatsapp", "email"].includes(scenario))
+  if (!["none", "whatsapp", "email", "official"].includes(scenario))
     throw new Error("Unknown CONTACT_TEST_SCENARIO");
   const env = {
     ...process.env,
@@ -17,6 +19,11 @@ for (const scenario of scenarios) {
     VERCEL_ENV: scenario === "none" ? "preview" : "production",
     SITE_INDEXABLE: "true",
   };
+  if (scenario === "official") {
+    delete env.NEXT_PUBLIC_CONTACT_EMAIL;
+    delete env.NEXT_PUBLIC_WHATSAPP_NUMBER;
+    env.NEXT_PUBLIC_PRIVACY_EMAIL = "";
+  }
   console.log(`\nE2E scenario: ${scenario} (${env.VERCEL_ENV})`);
   for (const args of [
     ["run", "build"],
