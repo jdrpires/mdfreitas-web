@@ -1,0 +1,30 @@
+# Roadmap de homologação
+
+## Site institucional — implementado
+
+Nove páginas institucionais e dois artigos, design responsivo, contato por canais externos configuráveis, SEO técnico, dados estruturados mínimos, headers de segurança, CI e testes. Sem canais configurados, o site não coleta mensagens nem oferece download de TXT.
+
+## Homologação — pendente
+
+1. Aprovar visualmente o logo oficial aplicado e o favicon em 390, 768 e 1440 px.
+2. Validar o funcionamento dos contatos comerciais já configurados e definir o canal específico de privacidade.
+3. Validar identificação jurídica e registros pendentes com Monica Freitas. Os sete serviços definitivos e os textos institucionais foram aprovados para implementação; não publicar números de CNPJ ou CRC sem confirmação.
+4. Concluir a validação jurídica da minuta aprovada para implementação, incluindo fornecedores e retenção. Aprovação de implementação não equivale a aprovação jurídica.
+5. Criar e revisar um preview somente após autorização, mantendo a indexação bloqueada.
+6. Testar a abertura dos canais reais em dispositivos de atendimento, sem dados sensíveis.
+
+## Publicação — etapa separada, não executada
+
+Importar/configurar Vercel, revisar a integração e seus gatilhos, autorizar publicação, associar o domínio e configurar DNS. Manter `SITE_INDEXABLE=false` até a aprovação; habilitar `true` apenas em Production quando o domínio oficial estiver pronto. Validar produção indexável e previews com noindex. Nenhum recurso pago ou merge está autorizado por este roadmap.
+
+## Projetos futuros — fora do escopo
+
+Portal, administração, autenticação, gestão documental, integrações, banco e IA dependem de uma nova fase de descoberta e autorização. Não há implementação, estruturas antecipadas ou previsão de disponibilidade nesta entrega.
+
+## Identidade — implementada
+
+Original recuperado da main (commit `5c601f5`), com transparência real. PNG integral otimizado sem alteração dos pixels, variante de margens reduzidas para exibição e favicon extraído do monograma. Cabeçalho e rodapé usam a imagem oficial com uma superfície clara de apoio; não houve redesenho ou troca de cores. A homologação visual permanece necessária, mas não há mais bloqueio por ausência do arquivo.
+
+## Portfólio definitivo
+
+Consultoria Empresarial, Gestão Financeira, Contabilidade, Departamento Pessoal, Departamento Fiscal, Abertura de Empresas e Regularização de Empresas. Abertura foi restaurada; Regularização recebeu página própria. Ambas usam os textos fornecidos, sem garantias de deferimento, eliminação de multas, redução de tributos ou prazos fixos.
