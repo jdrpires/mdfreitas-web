@@ -48,7 +48,7 @@ export default function Page() {
           <div className="office-details">
             <h3>Onde estamos</h3>
             <address>{business.address}</address>
-            <p>Responsável: {business.responsible}</p>
+            <p>Responsável: {business.responsible} — CRC-SP {business.responsibleCrc}</p>
           </div>
           {!contact.email && !contact.whatsapp && (
             <p className="article-note">
