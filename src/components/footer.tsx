@@ -52,6 +52,7 @@ export function Footer() {
             </a>
           )}
           <address>{business.address}</address>
+          <span>Responsável técnica: {business.responsible} — CRC-SP {business.responsibleCrc}</span>
           <span>
             Atendimento próximo.
             <br />

@@ -6,6 +6,7 @@ export const business = {
   email: "contato@mdfreitas.com.br",
   address: "Rua Aquidaban, 1, Sala 2, Centro, São Carlos — SP",
   responsible: "Monica Freitas",
+  responsibleCrc: "1SP365299",
   url: "https://mdfreitas.com.br",
 };
 export const confirmedServiceNames = [

@@ -33,7 +33,7 @@ export default function Page() {
           comunicação próxima, com atenção aos detalhes que impactam a gestão.
         </p>
         <h2>Responsável</h2>
-        <p>{business.responsible}</p>
+        <p>{business.responsible} — CRC-SP {business.responsibleCrc}</p>
         <h2>Modernização com propósito</h2>
         <p>
           A tecnologia faz parte da nossa visão de evolução. Cada melhoria deve
